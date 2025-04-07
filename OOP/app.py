@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from io import BytesIO
 import pandas as pd
+import os
 
 
 app = Flask(__name__)
@@ -278,5 +279,5 @@ def upload_timeseries():
     except Exception as e:
         return f"Ошибка при обработке файла: {str(e)}", 500
 
-if __name__ == '__main__':
-    app.run(host='192.168.1.86',debug=True)
+port = int(os.environ.get('PORT', 5000))
+app.run(host='0.0.0.0', port=port)
