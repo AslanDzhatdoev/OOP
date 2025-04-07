@@ -1,0 +1,294 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2E3440;
+    color: #D8DEE9;
+    margin: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.section, .section-dop {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #3B4252;
+    border-radius: 10px;
+}
+
+input, textarea, button, select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #4C566A;
+    color: #D8DEE9;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button-inline {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+button {
+    background-color: #5E81AC;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #81A1C1;
+}
+
+.result {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4C566A;
+    border-radius: 5px;
+}
+
+.calculator-wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.calculator-number-buttons,
+.calculator-other-buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(4, 60px);
+    gap: 10px;
+    justify-content: center;
+}
+
+.calculator-equals-button {
+    display: grid;
+    margin-top: 0;
+    grid-template-columns: repeat(3, 60px);
+    gap: 10px;
+    justify-content: center;
+    height;100px;
+}
+
+.calculator-number-buttons button,
+.calculator-other-buttons button,
+.calculator-equals-button button {
+    font-size: 18px;
+    width: 60px;
+    height: 60px;
+    background-color: #5E81AC;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.calculator-number-buttons button:hover,
+.calculator-other-buttons button:hover,
+.calculator-equals-button button:hover {
+    background-color: #81A1C1;
+}
+
+.calculator-equals-button button.placeholder {
+    visibility: hidden;
+}
+
+.equation-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.equation-inputs input {
+    flex: 1 1 100px;
+    min-width: 80px;
+}
+
+.matrix-inputs {
+    display: flex;
+    gap: 34px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.matrix-inputs textarea {
+    flex: 1 1 100%;
+    min-width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.graph-container {
+    margin-top: 20px;
+}
+
+.integral-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.integral-symbol {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.integral-symbol input {
+    width: clamp(60px, 20vw, 120px);
+    max-width: 100%;
+    flex-shrink: 1;
+}
+
+.integral-symbol .dx-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.dx-combined {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    justify-content: center;
+}
+
+.dx-combined span {
+    font-size: 18px;
+}
+
+.dx-combined input {
+    width: clamp(40px, 15vw, 60px);
+    flex-shrink: 1;
+}
+
+.limits-combined {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    margin: 5px 0;
+}
+
+.limits-combined span {
+    font-size: 18px;
+}
+
+.limits-combined input {
+    width: clamp(40px, 15vw, 60px);
+    flex-shrink: 1;
+    text-align: center;
+}
+
+.integral-limit {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.integral-limit input {
+    width: clamp(30px, 8vw, 50px);
+    text-align: center;
+}
+
+.upper-limit,
+.lower-limit {
+    position: static;
+    margin: 5px 0;
+}
+
+#graph_image {
+    max-width: 100%;
+}
+
+.input-group {
+    margin: 10px 0;
+}
+
+.timeseries-plot {
+    width: 100%;
+    height: 500px;
+}
+
+@media (max-width: 200px) {
+    .matrix-inputs {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .button-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .integral-container {
+        align-items: stretch;
+    }
+
+    .integral-symbol {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .integral-symbol .dx-group {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .dx-combined {
+        justify-content: center;
+    }
+
+    .limits-combined {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.matrix-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.matrix-inputs textarea {
+    height: 120px;
+    background-color: #4C566A;
+    color: #D8DEE9;
+    border-radius: 5px;
+    padding: 10px;
+    resize: vertical;
+}
+.timeseries-plot{
+    display:none;
+}
