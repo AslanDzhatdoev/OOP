@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Многофункциональный калькулятор</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<header class="project-header">
+  <h1>Проект</h1>
+  <p>Студент 2-ого курса ИЦТ СКГА</p>
+  <p>Джатдоев А.С.</p>
+</header>
+<body>
+  <div class="container">
+    <div class="accordion-controls">
+        <button onclick="toggleAllAccordions()">Открыть/Закрыть все</button>
+    </div>
+        <button class="accordion-clear" onclick="clearAllSections()">Очистить всё</button>
+
+
+    <div class="accordion-item" data-key="calc">
+      <div class="accordion-header">Калькулятор</div>
+      <div class="accordion-body">
+        <div class="section">
+
+          <div class="section">
+            <input type="text" id="expression" placeholder="Введите выражение">
+            <div class="calculator-wrapper">
+              <div class="calculator-number-buttons">
+                <button onclick="addToExpression('7')">7</button>
+                <button onclick="addToExpression('8')">8</button>
+                <button onclick="addToExpression('9')">9</button>
+                <button onclick="addToExpression('4')">4</button>
+                <button onclick="addToExpression('5')">5</button>
+                <button onclick="addToExpression('6')">6</button>
+                <button onclick="addToExpression('1')">1</button>
+                <button onclick="addToExpression('2')">2</button>
+                <button onclick="addToExpression('3')">3</button>
+                <button onclick="clearExpression()">C</button>
+                <button onclick="addToExpression('0')">0</button>
+                <button onclick="addToExpression('.')">.</button>
+              </div>
+              <div class="calculator-other-buttons">
+                <button onclick="addToExpression('+')">+</button>
+                <button onclick="addToExpression('(')">(</button>
+                <button onclick="addToExpression(')')">)</button>
+                <button onclick="addToExpression('-')">-</button>
+                <button onclick="addToExpression('sin(')">sin</button>
+                <button onclick="addToExpression('sqrt(')">√</button>
+                <button onclick="addToExpression('*')">*</button>
+                <button onclick="addToExpression('cos(')">cos</button>
+                <button onclick="addToExpression('^')">^</button>
+                <button onclick="addToExpression('/')">/</button>
+                <button onclick="addToExpression('tan(')">tan</button>
+                <button onclick="addToExpression('pi')">π</button>
+              </div>
+              <div class="calculator-equals-button">
+                <button class="placeholder"></button>
+                <button onclick="calculate()">=</button>
+              </div>
+            </div>
+            <div class="result" id="calc_result"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-key="equations">
+      <div class="accordion-header">Решение уравнений</div>
+      <div class="accordion-body">
+        <div class="section">
+
+          <div class="section">
+            <div class="equation-inputs">
+              <input type="text" id="left_expr" placeholder="a*(x^2)+b*x+c">
+              <span>=</span>
+              <input type="text" id="right_expr" placeholder="0">
+            </div>
+            <div class="button-inline">
+              <button onclick="solveEquation()">Решить</button>
+              <button onclick="clearEquation()">Очистить</button>
+            </div>
+            <div class="result" id="equation_result"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-key="graph">
+      <div class="accordion-header">Графики уравнений</div>
+      <div class="accordion-body">
+        <div class="section">
+
+          <div class="section-dop">
+            <div class="button-inline">
+                <button onclick="addFunction()">Добавить функцию</button>
+                <button onclick="removeFunction()">Удалить функцию</button>
+                <button onclick="plotGraph('single')">На одном графике</button>
+                <button onclick="plotGraph('multiple')">Разные графики</button>
+                <button onclick="clearGraph()">Очистить</button>
+            </div>
+            <div class="function-inputs" id="function_inputs">
+                <div class="function-group">
+                    <label>Функция:</label>
+                    <input type="text" name="func[]" placeholder="x^2">
+                    <div class="input-group">
+                        <label>Начальная точка (x):</label>
+                        <input type="number" name="start[]" placeholder="-10" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Конечная точка (x):</label>
+                        <input type="number" name="end[]" placeholder="10" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Шаг:</label>
+                        <input type="number" name="step[]" placeholder="0.1" step="0.01" min="0.01">
+                    </div>
+                </div>
+            </div>
+            <div class="graph-container">
+                <img id="graph_image">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="accordion-item" data-key="system">
+      <div class="accordion-header">Системы уравнений</div>
+      <div class="accordion-body">
+        <div class="section">
+
+          <div class="section-dop">
+            <div class="button-inline">
+                <button onclick="addEquation()">Добавить уравнение</button>
+                <button onclick="removeEquation()">Удалить уравнение</button>
+            </div>
+            <div id="system_equations">
+                <div class="input-group">
+                    <input type="text" class="system_eq" placeholder="Уравнение 1 (например, x + y = 2)">
+                </div>
+            </div>
+            <div class="button-inline">
+                <button onclick="solveSystem()">Решить</button>
+                <button onclick="clearSystem()">Очистить</button>
+            </div>
+            <div class="result" id="system_result"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-key="integral">
+          <div class="accordion-header">Интегрирование</div>
+          <div class="accordion-body">
+
+              <div class="section">
+                <div class="integral-container">
+                    <div class="integral-limit upper-limit">
+                        <input type="text" id="upper_limit" placeholder="b">
+                    </div>
+                    <div class="integral-symbol">
+                      <span style="font-size: 24px;">∫</span>
+
+                      <input type="text" id="integral_func" placeholder="Функция">
+
+                      <div class="dx-combined">
+                        <span>d</span>
+                        <input type="text" id="integral_var" placeholder="x">
+                      </div>
+                    </div>
+
+
+                    <div class="integral-limit lower-limit">
+                        <input type="text" id="lower_limit" placeholder="a">
+                    </div>
+                </div>
+                <button onclick="calculateIntegral()">Решить</button>
+                <button onclick="clearIntegral()">Очистить</button>
+                <div class="result" id="integral_result"></div>
+                <div class="result" id="antiderivative_result"></div>
+
+            </div>
+          </div>
+        </div>
+
+    <div class="accordion-item" data-key="derivative">
+      <div class="accordion-header">Дифференцирование</div>
+      <div class="accordion-body">
+        <div class="section">
+
+          <div class="section">
+            <input type="text" id="diff_func" placeholder="Функция (например, x^2)">
+            <input type="text" id="diff_order" placeholder="Степень производной (например, 1)">
+            <div class="button-inline">
+                <button onclick="solveDiffEq()">Решить</button>
+                <button onclick="clearDiffEq()">Очистить</button>
+            </div>
+            <div class="result" id="diff_eq_result"></div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item" data-key="matrix">
+      <div class="accordion-header">Операции над матрицами</div>
+      <div class="accordion-body">
+        <div class="section">
+
+          <div class="section">
+            <div class="matrix-inputs">
+                <textarea id="matrix_a" placeholder="Матрица A"></textarea>
+                <textarea id="matrix_b" placeholder="Матрица B"></textarea>
+            </div>
+            <div id="power_input" class="input-group" style="display: none;">
+                <input type="number" id="matrix_power" placeholder="Степень (например, 2)">
+            </div>
+            <select id="matrix_operation" onchange="togglePowerInput()">
+                <option value="sum">Сумма</option>
+                <option value="diff">Разность</option>
+                <option value="multiply">Умножение</option>
+                <option value="transpose_a">Транспонирование A</option>
+                <option value="transpose_b">Транспонирование B</option>
+                <option value="determinant_a">Определитель A</option>
+                <option value="determinant_b">Определитель B</option>
+                <option value="power_a">Возведение A в степень</option>
+                <option value="power_b">Возведение B в степень</option>
+                <option value="inverse_a">Обратная матрица A</option>
+                <option value="inverse_b">Обратная матрица B</option>
+            </select>
+            <div class="button-inline">
+                <button onclick="matrixOperation()">Решить</button>
+                <button onclick="matrixClearOperation()">Очистить</button>
+            </div>
+            <div class="result" id="matrix_result"></div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item open" data-key="timeseries">
+            <div class="accordion-header">Временные ряды</div>
+            <div class="accordion-body">
+              <div class="section">
+                <form id="timeseries-form" enctype="multipart/form-data">
+                  <input type="file" name="file" id="timeseries-file" accept=".csv,.xls,.xlsx">
+                  <div class="button-inline">
+                    <button type="submit">Построить график</button>
+                    <button type="button" onclick="clearOnlyTimeseriesPlot()">Очистить</button>
+                  </div>
+                </form>
+                <div class="result">
+                  <div id="timeseries-plot" class="timeseries-plot" style="display:none;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+  </div>
+  <button id="scrollToTopBtn" title="Наверх">↑</button>
+
+  <!-- Скрипты -->
+  <script src="{{ url_for('static', filename='scripts/calculator.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/equations.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/system.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/integral.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/diff.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/matrix.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/graph.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/timeseries.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/accordion.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/openClose.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/autoMultiply.js') }}"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+</body>
+</html>
