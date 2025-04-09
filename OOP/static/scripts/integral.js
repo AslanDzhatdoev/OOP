@@ -18,8 +18,9 @@ async function calculateIntegral() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `func=${encodeURIComponent(func)}&lower_limit=${encodeURIComponent(lower_limit)}&upper_limit=${encodeURIComponent(upper_limit)}&variable=${encodeURIComponent(variable)}`
     });
+
     const result = await response.text();
     const [integralResult, antiderivative] = result.split('\\n');
-    document.getElementById('integral_result').innerText = `Результат интегрирования: ${integralResult}`;
+    document.getElementById('integral_result').innerText = ` ${integralResult}`;
     document.getElementById('antiderivative_result').innerText = `Первообразная функция: ${antiderivative}`;
 }
