@@ -19,7 +19,13 @@ def calculate():
         expr = request.form['expression']
         expr = expr.replace('^', '**')
         result = sp.sympify(expr).evalf()
-        result = round(float(result), 3)
+
+        # Проверим, можно ли привести к float
+        try:
+            result = round(float(result), 3)
+        except:
+            pass  # оставим как есть, если это выражение типа x + y
+
         return f"Результат: {result}"
     except Exception as e:
         return f"Ошибка: {str(e)}"
@@ -226,8 +232,6 @@ import pandas as pd
 def upload_timeseries():
     try:
         file = request.files.get('file')
-        plot_type = request.form.get('plot_type', 'single')
-
         if not file:
             return "Файл не получен", 400
 
@@ -236,48 +240,34 @@ def upload_timeseries():
         elif file.filename.endswith(('.xls', '.xlsx')):
             df = pd.read_excel(file)
         else:
-            return "Поддерживаются только CSV, XLS, XLSX", 400
+            return "Неверный формат файла", 400
 
         if df.shape[1] < 2:
             return "Файл должен содержать минимум два столбца", 400
 
+        x = df.iloc[:, 0]
         traces = []
-        x_values = df[df.columns[0]]
 
-        if plot_type == 'single':
-            for col in df.columns[1:]:
-                traces.append({
-                    'x': x_values.tolist(),
-                    'y': df[col].tolist(),
-                    'type': 'scatter',
-                    'mode': 'lines+markers',
-                    'name': col
-                })
-            layout = {
-                'title': 'Общий график временных рядов',
-                'xaxis': {'title': str(df.columns[0]), 'rangeslider': {'visible': True}},
-                'yaxis': {'title': 'Значения'}
-            }
-        else:  # multiple
-            for col in df.columns[1:]:
-                traces.append({
-                    'x': x_values.tolist(),
-                    'y': df[col].tolist(),
-                    'type': 'scatter',
-                    'mode': 'lines+markers',
-                    'name': col
-                })
-            layout = {
-                'title': 'Отдельные временные ряды',
-                'xaxis': {'title': str(df.columns[0]), 'rangeslider': {'visible': True}},
-                'yaxis': {'title': 'Значения'},
-                'grid': {'rows': len(traces), 'columns': 1, 'pattern': 'independent'}
-            }
+        for col in df.columns[1:]:
+            traces.append({
+                'x': x.tolist(),
+                'y': df[col].tolist(),
+                'type': 'scatter',
+                'mode': 'lines+markers',
+                'name': col
+            })
+
+        layout = {
+            'title': 'График временных рядов',
+            'xaxis': {'title': str(df.columns[0]), 'rangeslider': {'visible': True}},
+            'yaxis': {'title': 'Значения'}
+        }
 
         return jsonify(data=traces, layout=layout)
 
     except Exception as e:
         return f"Ошибка при обработке файла: {str(e)}", 500
+
 
 port = int(os.environ.get('PORT', 5000))
 app.run(host='0.0.0.0', port=port)
