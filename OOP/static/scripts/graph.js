@@ -21,6 +21,7 @@ function clearGraph() {
             </div>
         </div>`;
     functionCount = 1;
+    updateAccordionHeights();
 }
 
 function addFunction() {
@@ -44,6 +45,7 @@ function addFunction() {
         </div>`;
     functionInputs.appendChild(newFunctionGroup);
     functionCount++;
+    updateAccordionHeights();
 }
 
 function removeFunction() {
@@ -51,14 +53,15 @@ function removeFunction() {
     if (functionCount > 1) {
         functionInputs.removeChild(functionInputs.lastChild);
         functionCount--;
+        updateAccordionHeights();
     }
 }
 
 async function plotGraph(plotType) {
-    const functions = Array.from(document.querySelectorAll('input[name=\"func[]\"]')).map(input => input.value);
-    const starts = Array.from(document.querySelectorAll('input[name=\"start[]\"]')).map(input => input.value);
-    const ends = Array.from(document.querySelectorAll('input[name=\"end[]\"]')).map(input => input.value);
-    const steps = Array.from(document.querySelectorAll('input[name=\"step[]\"]')).map(input => input.value);
+    const functions = Array.from(document.querySelectorAll('input[name="func[]"]')).map(input => input.value);
+    const starts = Array.from(document.querySelectorAll('input[name="start[]"]')).map(input => input.value);
+    const ends = Array.from(document.querySelectorAll('input[name="end[]"]')).map(input => input.value);
+    const steps = Array.from(document.querySelectorAll('input[name="step[]"]')).map(input => input.value);
 
     const response = await fetch('/plot_graph', {
         method: 'POST',
@@ -70,8 +73,15 @@ async function plotGraph(plotType) {
         const imageBlob = await response.blob();
         const imageUrl = URL.createObjectURL(imageBlob);
         document.getElementById('graph_image').src = imageUrl;
+        updateAccordionHeights();
     } else {
         const error = await response.text();
         alert(error);
     }
+}
+
+function updateAccordionHeights() {
+    document.querySelectorAll('.accordion-item.open .accordion-body').forEach(body => {
+        body.style.maxHeight = body.scrollHeight + "px";
+    });
 }
