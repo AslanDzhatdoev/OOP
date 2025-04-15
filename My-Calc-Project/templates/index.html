@@ -7,10 +7,31 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <header class="project-header">
-  <h1>Проект</h1>
-  <p>Студент 2-ого курса ИЦТ СКГА</p>
-  <p>Джатдоев А.С.</p>
+  <div class="header-title">
+    <div>
+      <h1>Проект</h1>
+      <p>Студент 2-ого курса ИЦТ СКГА</p>
+      <p>Джатдоев А.С.</p>
+    </div>
+    <button class="help-btn" onclick="openHelpModal()">?</button>
+  </div>
 </header>
+<body>
+
+<!-- Модальное окно с инструкцией -->
+<div id="helpModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeHelpModal()">&times;</span>
+    <h2>Как пользоваться сайтом</h2>
+    <p><strong>1. Калькулятор:</strong> введите выражение и нажмите =. Поддерживаются скобки, функции sin, cos, tan, sqrt, π и др.</p>
+    <p><strong>2. Решение уравнений:</strong> введите уравнение слева и справа, нажмите "Решить", чтобы увидеть корни.</p>
+    <p><strong>3. Графики уравнений:</strong> добавьте функции и диапазоны, затем постройте графики на одном или разных графиках.</p>
+    <p><strong>4. Системы уравнений:</strong> добавьте уравнения по одному в строке, нажмите "Решить".</p>
+    <p><strong>5. Интегралы и производные:</strong> введите функцию, переменную, пределы (если есть) и нажмите "Решить".</p>
+    <p><strong>6. Матрицы:</strong> введите матрицы A и B, выберите операцию (сумма, произведение, определитель и др.), нажмите "Решить".</p>
+    <p><strong>7. Временные ряды:</strong> загрузите CSV/Excel-файл, выберите настройки и постройте график. График можно увеличить, скачать или сбросить масштаб.</p>
+  </div>
+</div>
 <body>
   <div class="container">
     <div class="accordion-controls">
