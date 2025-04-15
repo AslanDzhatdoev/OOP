@@ -410,3 +410,78 @@ button:not(.button-calc):not(.accordion-clear):not(.accordion-controls button) {
 
 
 
+.project-header {
+  text-align: center;
+  background-color: #434C5E;
+  color: #ECEFF4;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.help-btn {
+  margin-left:20px;
+  background-color: #5f7ea0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 10px;
+  height: 35px;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+/* Модалка */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background-color: #ECEFF4;
+  color: #2E3440;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  right:20px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff4d4f;
+  cursor: pointer;
+}
+.modal-close:hover {
+  color: #ff8888;
+}
+
+
