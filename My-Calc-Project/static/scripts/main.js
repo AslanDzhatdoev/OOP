@@ -132,3 +132,12 @@ function closeGraphModal() {
 
 
 
+
+
+function openHelpModal() {
+  document.getElementById('helpModal').style.display = 'flex';
+}
+
+function closeHelpModal() {
+  document.getElementById('helpModal').style.display = 'none';
+}
